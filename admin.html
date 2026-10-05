@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Админ-панель — One & Only{% endblock %}
+{% block content %}
+<main class="admin-page">
+  <div class="admin-head">
+    <div><div class="eyebrow">ONE & ONLY / ADMIN</div><h1>Регистрации</h1></div>
+    <a href="{{ url_for('admin_logout') }}" class="header-link">Выйти</a>
+  </div>
+  <div class="stats"><div><span>{{ registrations|length }}</span><small>регистраций</small></div></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>№</th><th>Браслет</th><th>Отправитель</th><th>Получатель</th><th>Телефон</th><th>Доставка</th><th>Дата</th><th></th></tr></thead>
+      <tbody>
+      {% for r in registrations %}
+        <tr>
+          <td>{{ r.id }}</td><td><strong>{{ r.bracelet_number }}</strong></td>
+          <td>{{ r.sender_name }}<br><small>{{ r.sender_birthdate }}</small></td>
+          <td>{{ r.recipient_name }}<br><small>{{ r.recipient_birthdate }}</small></td>
+          <td>{{ r.phone }}</td><td>{{ r.delivery }}</td><td>{{ r.created_at }}</td>
+          <td><form method="post" action="{{ url_for('delete_registration', registration_id=r.id) }}" onsubmit="return confirm('Удалить регистрацию?')"><button class="delete">×</button></form></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="8" class="empty">Регистраций пока нет.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

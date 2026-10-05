@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}One & Only — Браслет с единственным выбором{% endblock %}
+{% block content %}
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">ONE & ONLY</div>
+      <h1>Один браслет.<br><em>Один человек.</em></h1>
+      <p>Ваш браслет создаётся как особенный подарок. Вы регистрируете его за выбранным человеком — повторно зарегистрировать этот номер невозможно.</p>
+      <a class="button" href="{{ url_for('register') }}">Зарегистрировать браслет →</a>
+    </div>
+    <div class="hero-card">
+      <div class="bracelet">♡</div>
+      <div class="card-number">ONE & ONLY</div>
+      <div class="card-caption">уникальный выбор</div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div><b>01</b><h3>Выберите человека</h3><p>Укажите данные того, кому предназначен браслет.</p></div>
+    <div><b>02</b><h3>Введите номер</h3><p>Номер браслета закрепляется в базе за вашим выбором.</p></div>
+    <div><b>03</b><h3>Готово</h3><p>После регистрации этот номер больше нельзя зарегистрировать повторно.</p></div>
+  </section>
+
+  <section class="story">
+    <div>
+      <div class="eyebrow">ВАШ ВЫБОР</div>
+      <h2>Не просто украшение.<br>Личная история.</h2>
+    </div>
+    <p>Сделайте выбор один раз — для одного человека. Регистрация подтверждает, что этот номер браслета уже принадлежит вашей истории.</p>
+  </section>
+</main>
+{% endblock %}

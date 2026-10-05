@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Регистрация подтверждена{% endblock %}
+{% block content %}
+<main class="success-page">
+  <div class="success-icon">✓</div>
+  <div class="eyebrow">ГОТОВО</div>
+  <h1>Ваш выбор<br><em>зарегистрирован</em></h1>
+  <p>Браслет № <strong>{{ number }}</strong> успешно закреплён. Повторная регистрация этого номера невозможна.</p>
+  <a class="button" href="{{ url_for('index') }}">Вернуться на сайт</a>
+</main>
+{% endblock %}

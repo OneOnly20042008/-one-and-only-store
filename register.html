@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Регистрация браслета — One & Only{% endblock %}
+{% block content %}
+<main class="form-page">
+  <div class="form-intro">
+    <div class="eyebrow">ONE & ONLY</div>
+    <h1>Зарегистрируйте<br><em>свой выбор</em></h1>
+    <p>Один номер браслета можно зарегистрировать только один раз.</p>
+  </div>
+
+  <form class="form-card" method="post" onsubmit="return validateForm()">
+    <label>Номер браслета *</label>
+    <input name="bracelet_number" id="bracelet_number" placeholder="Например: 00125" value="{{ data.get('bracelet_number','') }}" required>
+    <div id="status" class="status"></div>
+
+    <div class="two">
+      <div><label>Ваше имя *</label><input name="sender_name" value="{{ data.get('sender_name','') }}" required></div>
+      <div><label>Дата рождения *</label><input type="date" name="sender_birthdate" value="{{ data.get('sender_birthdate','') }}" required></div>
+    </div>
+
+    <div class="two">
+      <div><label>Имя получателя *</label><input name="recipient_name" value="{{ data.get('recipient_name','') }}" required></div>
+      <div><label>Дата рождения получателя *</label><input type="date" name="recipient_birthdate" value="{{ data.get('recipient_birthdate','') }}" required></div>
+    </div>
+
+    <label>Номер телефона *</label>
+    <input name="phone" type="tel" placeholder="+7 900 000-00-00" value="{{ data.get('phone','') }}" required>
+
+    <label>Доставка *</label>
+    <select name="delivery" required>
+      <option value="">Выберите способ</option>
+      <option value="СДЭК" {% if data.get('delivery') == 'СДЭК' %}selected{% endif %}>СДЭК</option>
+    </select>
+
+    <label>Комментарий</label>
+    <textarea name="comment" rows="4" placeholder="Дополнительная информация">{{ data.get('comment','') }}</textarea>
+
+    <label class="consent"><input type="checkbox" required> Я согласен(а) на обработку указанных персональных данных.</label>
+    <button class="button full" type="submit">Зарегистрировать выбор →</button>
+  </form>
+</main>
+<script>
+async function validateForm() {
+  const n = document.getElementById('bracelet_number').value.trim();
+  const status = document.getElementById('status');
+  if (!n) return false;
+  try {
+    const r = await fetch('/check/' + encodeURIComponent(n));
+    const data = await r.json();
+    if (data.registered) {
+      status.textContent = 'Этот номер уже зарегистрирован.';
+      status.className = 'status bad';
+      return false;
+    }
+  } catch(e) {}
+  return true;
+}
+</script>
+{% endblock %}
